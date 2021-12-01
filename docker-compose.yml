@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  petversobk:
+    image: postgres:alpine
+    ports:
+      - '5432:5432'
+    container_name: 'petversobk'
+    restart: always
+    volumes:
+      - petversobk-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: petuser
+      POSTGRES_PASSWORD: petpassword
+
+volumes:
+  petversobk-data:
