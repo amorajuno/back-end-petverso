@@ -26,6 +26,7 @@ model Empresa {
   id        String    @id @unique @default(uuid())
   nome      String    @unique
   password  String
+  email     String    @unique
   cnpj      Int       @unique
   createdAt DateTime  @default(now())
   produtos  Produto[]
@@ -46,8 +47,6 @@ model Produto {
   empresaID   String
   categorias  Categoria @relation(fields: [categoriaID], references: [id])
   categoriaID String
-
-
 }
 
 model Categoria {
@@ -55,4 +54,3 @@ model Categoria {
   nome     String
   produtos Produto[]
 }
-

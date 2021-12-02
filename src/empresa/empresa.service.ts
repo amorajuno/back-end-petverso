@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Empresa, Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
-import { CreateEmpresaDto } from './dto/create-empresa.dto';
 import { UpdateEmpresaDto } from './dto/update-empresa.dto';
 
 @Injectable()
@@ -25,7 +24,9 @@ export class EmpresaService {
     return `This action updates a #${id} empresa`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} empresa`;
+  async remove(id: string): Promise<{ message: string }> {
+    await this.db.empresa.delete({ where: { id } });
+
+    return { message: `This action removes a #${id} empresa` };
   }
 }

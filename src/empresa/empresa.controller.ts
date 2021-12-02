@@ -16,12 +16,12 @@ import { UpdateEmpresaDto } from './dto/update-empresa.dto';
 export class EmpresaController {
   constructor(private readonly empresaService: EmpresaService) {}
 
-  @Post('new')
+  @Post('registrar')
   create(@Body() data: CreateEmpresaDto): Promise<Empresa> {
     return this.empresaService.create(data);
   }
 
-  @Get()
+  @Get('todas')
   findAll() {
     return this.empresaService.findAll();
   }
@@ -38,6 +38,6 @@ export class EmpresaController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.empresaService.remove(+id);
+    return this.empresaService.remove(id);
   }
 }
