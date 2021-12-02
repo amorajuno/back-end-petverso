@@ -12,8 +12,9 @@ export class EmpresaService {
     return empresa;
   }
 
-  findAll() {
-    return `This action returns all empresa`;
+  async findAll(): Promise<Empresa[]> {
+    const empresas = await this.db.empresa.findMany();
+    return empresas;
   }
 
   findOne(id: number) {
@@ -27,6 +28,6 @@ export class EmpresaService {
   async remove(id: string): Promise<{ message: string }> {
     await this.db.empresa.delete({ where: { id } });
 
-    return { message: `This action removes a #${id} empresa` };
+    return { message: `Empresa com ID: ${id} deletada com sucesso.` };
   }
 }

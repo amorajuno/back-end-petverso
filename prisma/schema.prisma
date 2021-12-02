@@ -27,7 +27,7 @@ model Empresa {
   nome      String    @unique
   password  String
   email     String    @unique
-  cnpj      Int       @unique
+  cnpj      String       @unique
   createdAt DateTime  @default(now())
   produtos  Produto[]
 }
