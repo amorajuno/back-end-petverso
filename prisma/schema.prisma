@@ -9,3 +9,50 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        String   @id @unique @default(uuid())
+  email     String   @unique
+  password  String
+  username  String
+  nome      String
+  cep       Int
+  address1  String?
+  address2  String?
+  createdAt DateTime @default(now())
+}
+
+model Empresa {
+  id        String    @id @unique @default(uuid())
+  nome      String    @unique
+  password  String
+  cnpj      Int       @unique
+  createdAt DateTime  @default(now())
+  produtos  Produto[]
+}
+
+model Produto {
+  id          String    @id @unique @default(uuid())
+  nome        String
+  categoria   String
+  tipoAnimal  String?
+  preco       Int
+  descricao   String
+  conteudo    String
+  restricao   String
+  updatedAt   DateTime  @updatedAt
+  addedAt     DateTime  @default(now())
+  empresas    Empresa   @relation(fields: [empresaID], references: [id])
+  empresaID   String
+  categorias  Categoria @relation(fields: [categoriaID], references: [id])
+  categoriaID String
+
+
+}
+
+model Categoria {
+  id       String    @id @unique @default(uuid())
+  nome     String
+  produtos Produto[]
+}
+
