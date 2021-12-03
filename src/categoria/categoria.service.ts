@@ -19,15 +19,15 @@ export class CategoriaService {
   }
 
   async findOne(id: string): Promise<Categoria> {
-    const empresa = await this.db.categoria.findUnique({
+    const categoria = await this.db.categoria.findUnique({
       where: { id },
     });
 
-    if (!empresa) {
+    if (!categoria) {
       throw new NotFoundException('ID não encontrado');
     }
 
-    return empresa;
+    return categoria;
   }
 
   update(id: number, updateCategoriaDto: UpdateCategoriaDto) {
@@ -37,6 +37,6 @@ export class CategoriaService {
   async remove(id: string): Promise<{ message: string }> {
     await this.db.categoria.delete({ where: { id } });
 
-    return { message: `Empresa com ID: ${id} deletada com sucesso.` };
+    return { message: `Categoria com ID: ${id} deletada com sucesso.` };
   }
 }
