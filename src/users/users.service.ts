@@ -30,6 +30,7 @@ export class UsersService {
         ...data,
         role: role,
         password: cryptPass,
+        passwordConfirmation: cryptPass,
       },
     });
 
