@@ -36,17 +36,17 @@ model Produto {
   id          String    @id @unique @default(uuid())
   nome        String
   categoria   String
-  tipoAnimal  String?
+  tipoAnimal  String
   preco       Int
   descricao   String
   conteudo    String
   restricao   String
   updatedAt   DateTime  @updatedAt
   addedAt     DateTime  @default(now())
-  empresa     Empresa?  @relation(fields: [empresaID], references: [id])
   empresaID   String
-  categorias  Categoria @relation(fields: [categoriaID], references: [id])
   categoriaID String
+  empresa     Empresa  @relation(fields: [empresaID], references: [id])
+  categorias  Categoria @relation(fields: [categoriaID], references: [id])
 }
 
 model Categoria {

@@ -6,6 +6,6 @@ export class CreateProdutoDto {
   descricao: string;
   conteudo: string;
   restricao: string;
-  categorias: string;
   empresaID: string;
+  categoriaID: string;
 }
