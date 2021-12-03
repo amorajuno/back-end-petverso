@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Empresa, Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { UpdateEmpresaDto } from './dto/update-empresa.dto';
@@ -17,8 +17,16 @@ export class EmpresaService {
     return empresas;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} empresa`;
+  async findOne(id: string): Promise<Empresa> {
+    const empresa = await this.db.empresa.findUnique({
+      where: { id },
+    });
+
+    if (!empresa) {
+      throw new NotFoundException('ID não encontrado');
+    }
+
+    return empresa;
   }
 
   update(id: number, updateEmpresaDto: UpdateEmpresaDto) {

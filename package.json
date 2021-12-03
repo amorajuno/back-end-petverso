@@ -1,8 +1,8 @@
 {
   "name": "back-end-petverso",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Backend para o marketplace de produtos para pets.",
+  "author": "equipe 2",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -70,5 +70,14 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  }
+  },
+  "main": ".eslintrc.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amorajuno/back-end-petverso.git"
+  },
+  "bugs": {
+    "url": "https://github.com/amorajuno/back-end-petverso/issues"
+  },
+  "homepage": "https://github.com/amorajuno/back-end-petverso#readme"
 }
