@@ -11,29 +11,33 @@ datasource db {
 }
 
 model User {
-  id        String   @id @unique @default(uuid())
-  email     String   @unique
-  password  String
-  username  String
-  nome      String
-  cep       Int
-  address1  String?
-  address2  String?
-  createdAt DateTime @default(now())
+  id                   String   @id @unique @default(uuid())
+  email                String   @unique
+  password             String
+  passwordConfirmation String
+  role                 String   @default("USER")
+  username             String
+  nome                 String
+  cep                  Int
+  address1             String?
+  address2             String?
+  createdAt            DateTime @default(now())
 }
 
 model Empresa {
-  id        String    @id @unique @default(uuid())
-  nome      String    @unique
-  password  String
-  email     String    @unique
-  cnpj      String       @unique
-  createdAt DateTime  @default(now())
-  produtos  Produto[]
+  id                   String    @id @unique @default(uuid())
+  nome                 String    @unique
+  password             String
+  passwordConfirmation String
+  email                String    @unique
+  cnpj                 String    @unique
+  role                 String    @default("USER_COM")
+  createdAt            DateTime  @default(now())
+  produtos             Produto[]
 }
 
 model Produto {
-  id          String    @id @unique @default(uuid())
+  id          String     @id @unique @default(uuid())
   nome        String
   categoria   String
   tipoAnimal  String
@@ -41,12 +45,12 @@ model Produto {
   descricao   String
   conteudo    String
   restricao   String
-  updatedAt   DateTime  @updatedAt
-  addedAt     DateTime  @default(now())
+  updatedAt   DateTime   @updatedAt
+  addedAt     DateTime   @default(now())
   empresaID   String
   categoriaID String
-  empresa     Empresa  @relation(fields: [empresaID], references: [id])
-  categorias  Categoria @relation(fields: [categoriaID], references: [id])
+  empresa     Empresa?   @relation(fields: [empresaID], references: [id])
+  categorias  Categoria? @relation(fields: [categoriaID], references: [id])
 }
 
 model Categoria {

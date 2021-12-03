@@ -17,7 +17,7 @@ export class ProdutoController {
   constructor(private readonly produtoService: ProdutoService) {}
 
   @Post('cadastrar')
-  create(@Body() data: CreateProdutoDto): Promise<Produto>{
+  create(@Body() data: CreateProdutoDto): Promise<Produto> {
     return this.produtoService.create(data);
   }
 
