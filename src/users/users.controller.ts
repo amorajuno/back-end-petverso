@@ -15,19 +15,19 @@ import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { Role } from 'src/auth/role.decorator';
 
-@Controller('users')
+@Controller('user')
 export class UsersController {
   constructor(private readonly service: UsersService) {}
 
   //registro
-  @Post('new')
+  @Post('registrar')
   createUser(@Body() data: CreateUserDto): Promise<User> {
     delete data.passwordConfirmation;
     return this.service.create(data, UserRole.USER);
   }
 
   //new admin
-  @Post('create-admin')
+  @Post('registrar-admin')
   @Role(UserRole.ADMIN)
   @UseGuards(AuthGuard(), RolesGuard)
   createAdmin(@Body() data: CreateUserDto): Promise<User> {
