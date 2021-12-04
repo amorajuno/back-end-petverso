@@ -48,13 +48,13 @@ model Produto {
   updatedAt   DateTime   @updatedAt
   addedAt     DateTime   @default(now())
   empresaID   String
-  categoriaID String
+  categoriaID Int
   empresa     Empresa?   @relation(fields: [empresaID], references: [id])
   categorias  Categoria? @relation(fields: [categoriaID], references: [id])
 }
 
 model Categoria {
-  id       String    @id @unique @default(uuid())
+  id       Int      @id @default(autoincrement())
   nome     String
   produtos Produto[]
 }

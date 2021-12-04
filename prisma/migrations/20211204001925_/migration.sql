@@ -42,14 +42,14 @@ CREATE TABLE "Produto" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "addedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "empresaID" TEXT NOT NULL,
-    "categoriaID" TEXT NOT NULL,
+    "categoriaID" INTEGER NOT NULL,
 
     CONSTRAINT "Produto_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Categoria" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "nome" TEXT NOT NULL,
 
     CONSTRAINT "Categoria_pkey" PRIMARY KEY ("id")
@@ -75,9 +75,6 @@ CREATE UNIQUE INDEX "Empresa_cnpj_key" ON "Empresa"("cnpj");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Produto_id_key" ON "Produto"("id");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Categoria_id_key" ON "Categoria"("id");
 
 -- AddForeignKey
 ALTER TABLE "Produto" ADD CONSTRAINT "Produto_empresaID_fkey" FOREIGN KEY ("empresaID") REFERENCES "Empresa"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
