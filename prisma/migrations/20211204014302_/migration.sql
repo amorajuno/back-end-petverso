@@ -76,6 +76,9 @@ CREATE UNIQUE INDEX "Empresa_cnpj_key" ON "Empresa"("cnpj");
 -- CreateIndex
 CREATE UNIQUE INDEX "Produto_id_key" ON "Produto"("id");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "Categoria_id_key" ON "Categoria"("id");
+
 -- AddForeignKey
 ALTER TABLE "Produto" ADD CONSTRAINT "Produto_empresaID_fkey" FOREIGN KEY ("empresaID") REFERENCES "Empresa"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 

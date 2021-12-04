@@ -12,8 +12,8 @@ import { UserRole } from './enum/role.enum';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import { AuthGuard } from '@nestjs/passport';
-import { RolesGuard } from 'src/auth/roles.guard';
-import { Role } from 'src/auth/role.decorator';
+import { RolesGuard } from 'src/auth/role/roles.guard';
+import { Role } from 'src/auth/role/role.decorator';
 
 @Controller('user')
 export class UsersController {
