@@ -18,7 +18,7 @@ export class CategoriaService {
     return categoria;
   }
 
-  async findOne(id: string): Promise<Categoria> {
+  async findOne(id: number): Promise<Categoria> {
     const categoria = await this.db.categoria.findUnique({
       where: { id },
     });
@@ -30,11 +30,11 @@ export class CategoriaService {
     return categoria;
   }
 
-  update(id: string, updateCategoriaDto: UpdateCategoriaDto) {
+  update(id: number, updateCategoriaDto: UpdateCategoriaDto) {
     return `This action updates a #${id} empresa`;
   }
 
-  async remove(id: string): Promise<{ message: string }> {
+  async remove(id: number): Promise<{ message: string }> {
     await this.db.categoria.delete({ where: { id } });
 
     return { message: `Categoria com ID: ${id} deletada com sucesso.` };
