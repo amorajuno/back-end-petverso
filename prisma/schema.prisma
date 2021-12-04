@@ -54,7 +54,7 @@ model Produto {
 }
 
 model Categoria {
-  id      Int      @id @default(autoincrement())
+  id       Int      @id @default(autoincrement()) @unique
   nome     String
   produtos Produto[]
 }

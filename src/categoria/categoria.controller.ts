@@ -28,7 +28,7 @@ export class CategoriaController {
 
   @Get(':id')
   findOne(@Param('id') id: number) {
-    return this.categoriaService.findOne(id);
+    return this.categoriaService.findOne(+id);
   }
 
   @Delete(':id')
