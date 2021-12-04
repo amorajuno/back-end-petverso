@@ -35,19 +35,19 @@ export class UsersController {
     return this.service.create(data, UserRole.ADMIN);
   }
 
-  @Get('find/:id')
+  @Get('buscar/:id')
   @UseGuards(AuthGuard())
   findOne(@Param('id') id: string): Promise<User> {
     return this.service.findOne(id);
   }
 
-  @Get('find/name/:username')
+  @Get('buscar/name/:username')
   @UseGuards(AuthGuard())
   findOneByName(@Param('username') username: string): Promise<User> {
     return this.service.findOneByName(username);
   }
 
-  @Get('find-all')
+  @Get('buscar-todos')
   @UseGuards(AuthGuard())
   findMany() {
     return this.service.findMany();
@@ -60,7 +60,7 @@ export class UsersController {
     return this.service.findAll();
   }
 
-  @Delete('delete/:id')
+  @Delete('deletar/:id')
   @Role(UserRole.ADMIN)
   @UseGuards(AuthGuard(), RolesGuard)
   deleteOne(@Param('id') id: string): Promise<{ message: string }> {
