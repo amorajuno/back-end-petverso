@@ -10,7 +10,6 @@ import {
 import { Categoria } from '.prisma/client';
 import { CategoriaService } from './categoria.service';
 import { CreateCategoriaDto } from './dto/create-categoria.dto';
-import { UpdateCategoriaDto } from './dto/update-categoria.dto';
 
 @Controller('categoria')
 export class CategoriaController {

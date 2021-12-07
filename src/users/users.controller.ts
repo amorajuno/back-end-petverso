@@ -12,8 +12,8 @@ import { UserRole } from './enum/role.enum';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import { AuthGuard } from '@nestjs/passport';
-import { RolesGuard } from 'src/auth/roles.guard';
-import { Role } from 'src/auth/role.decorator';
+import { RolesGuard } from 'src/auth/role/roles.guard';
+import { Role } from 'src/auth/role/role.decorator';
 
 @Controller('user')
 export class UsersController {
@@ -35,19 +35,19 @@ export class UsersController {
     return this.service.create(data, UserRole.ADMIN);
   }
 
-  @Get('find/:id')
+  @Get('buscar/:id')
   @UseGuards(AuthGuard())
   findOne(@Param('id') id: string): Promise<User> {
     return this.service.findOne(id);
   }
 
-  @Get('find/name/:username')
+  @Get('buscar/name/:username')
   @UseGuards(AuthGuard())
   findOneByName(@Param('username') username: string): Promise<User> {
     return this.service.findOneByName(username);
   }
 
-  @Get('find-all')
+  @Get('buscar-todos')
   @UseGuards(AuthGuard())
   findMany() {
     return this.service.findMany();
@@ -60,7 +60,7 @@ export class UsersController {
     return this.service.findAll();
   }
 
-  @Delete('delete/:id')
+  @Delete('deletar/:id')
   @Role(UserRole.ADMIN)
   @UseGuards(AuthGuard(), RolesGuard)
   deleteOne(@Param('id') id: string): Promise<{ message: string }> {
