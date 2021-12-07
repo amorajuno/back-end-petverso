@@ -1,7 +1,7 @@
 import {
   Injectable,
-  ConflictException,
   NotFoundException,
+  BadRequestException,
 } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
@@ -17,12 +17,11 @@ export class UsersService {
       where: { email: data.email },
     });
 
-    const userCpf = data.cpf;
-    if (!cpfValidate.validate(userCpf)) {
-      throw new ConflictException('CPF inválido');
+    if (!cpfValidate.validate(data.cpf)) {
+      throw new BadRequestException('CPF inválido');
     }
     if (emailInUse) {
-      throw new ConflictException('Email já está cadastrado');
+      throw new BadRequestException('Email já está cadastrado');
     }
     const saltRounds = 13;
     const cryptPass = await bcrypt.hash(data.password, saltRounds);
