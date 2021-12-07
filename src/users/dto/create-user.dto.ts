@@ -5,7 +5,6 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { isCPF, isCEP } from 'brazilian-values';
 
 export class CreateUserDto {
   @IsEmail()
