@@ -7,20 +7,23 @@ import { Prisma, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { UserRole } from './enum/role.enum';
 import * as bcrypt from 'bcrypt';
+import * as cpfValidate from 'node-cpf';
 
 @Injectable()
 export class UsersService {
   constructor(private db: PrismaService) {}
-
   async create(data: Prisma.UserCreateInput, role: UserRole): Promise<User> {
     const emailInUse = await this.db.user.findUnique({
       where: { email: data.email },
     });
 
+    const userCpf = data.cpf;
+    if (!cpfValidate.validate(userCpf)) {
+      throw new ConflictException('CPF inválido');
+    }
     if (emailInUse) {
       throw new ConflictException('Email já está cadastrado');
     }
-
     const saltRounds = 13;
     const cryptPass = await bcrypt.hash(data.password, saltRounds);
 
@@ -34,6 +37,8 @@ export class UsersService {
     });
 
     delete (await user).password;
+    delete (await user).passwordConfirmation;
+
     return user;
   }
 

@@ -12,13 +12,14 @@ datasource db {
 
 model User {
   id                   String   @id @unique @default(uuid())
+  nome                 String
   email                String   @unique
+  username             String
   password             String
   passwordConfirmation String
   role                 String   @default("USER")
-  username             String
-  nome                 String
-  cep                  Int
+  cpf                  String   @unique
+  cep                  String
   address1             String?
   address2             String?
   createdAt            DateTime @default(now())

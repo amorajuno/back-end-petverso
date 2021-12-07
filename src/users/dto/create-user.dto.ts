@@ -5,6 +5,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { isCPF, isCEP } from 'brazilian-values';
 
 export class CreateUserDto {
   @IsEmail()
@@ -32,7 +33,9 @@ export class CreateUserDto {
   @IsString()
   username: string;
 
-  cep: number;
+  cep: string;
+
+  cpf: string;
 
   address1: string;
 
