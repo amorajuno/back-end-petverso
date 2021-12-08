@@ -16,6 +16,8 @@ export class CategoriaController {
   constructor(private categoriaService: CategoriaService) {}
 
   @Post('cadastrar')
+  @Role(UserRole.ADMIN)
+  @UseGuards(AuthGuard(), RolesGuard)
   create(@Body() data: CreateCategoriaDto): Promise<Categoria> {
     return this.categoriaService.create(data);
   }
@@ -31,6 +33,8 @@ export class CategoriaController {
   }
 
   @Delete(':id')
+  @Role(UserRole.ADMIN)
+  @UseGuards(AuthGuard(), RolesGuard)
   remove(@Param('id') id: number) {
     return this.categoriaService.remove(id);
   }

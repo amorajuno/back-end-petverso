@@ -17,6 +17,8 @@ export class ProdutoController {
   constructor(private readonly produtoService: ProdutoService) {}
 
   @Post('cadastrar')
+  @Role(UserRole.USER_COM)
+  @UseGuards(AuthGuard(), RolesGuard)
   create(@Body() data: CreateProdutoDto): Promise<Produto> {
     return this.produtoService.create(data);
   }
@@ -37,6 +39,8 @@ export class ProdutoController {
   }
 
   @Delete('apagar/:id')
+  @Role(UserRole.ADMIN)
+  @UseGuards(AuthGuard(), RolesGuard)
   remove(@Param('id') id: string) {
     return this.produtoService.remove(+id);
   }
