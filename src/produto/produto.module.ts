@@ -4,7 +4,7 @@ import { ProdutoService } from './produto.service';
 import { ProdutoController } from './produto.controller';
 
 @Module({
-  imports: [],
+  imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
   controllers: [ProdutoController],
   providers: [ProdutoService, PrismaService],
 })
