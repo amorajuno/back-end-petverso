@@ -1,6 +1,7 @@
 
 ### dotenv ###
-.env
+/.env
+*.env
 
 ### Node ###
 # Logs
@@ -151,3 +152,6 @@ dist
 !.vscode/*.code-snippets
 
 # End of https://www.toptal.com/developers/gitignore/api/node,visualstudiocode,dotenv
+
+/dist
+/node_modules
