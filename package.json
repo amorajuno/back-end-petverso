@@ -91,5 +91,9 @@
   "bugs": {
     "url": "https://github.com/amorajuno/back-end-petverso/issues"
   },
+  "engines": {
+    "node": "14.18.1"
+  },
   "homepage": "https://github.com/amorajuno/back-end-petverso#readme"
+
 }
