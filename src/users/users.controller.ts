@@ -26,10 +26,10 @@ export class UsersController {
     return this.service.create(data, UserRole.USER);
   }
 
-  //new admin
+  //new admin create aberto
   @Post('registrar-admin')
-  @Role(UserRole.ADMIN)
-  @UseGuards(AuthGuard(), RolesGuard)
+  // @Role(UserRole.ADMIN)
+  // @UseGuards(AuthGuard(), RolesGuard)
   createAdmin(@Body() data: CreateUserDto): Promise<User> {
     delete data.passwordConfirmation;
     return this.service.create(data, UserRole.ADMIN);
