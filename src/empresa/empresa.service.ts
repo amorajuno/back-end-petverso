@@ -10,7 +10,7 @@ import * as cnpj from 'cnpj';
 
 @Injectable()
 export class EmpresaService {
-  constructor(private db: PrismaService) { }
+  constructor(private db: PrismaService) {}
 
   async create(data: Prisma.EmpresaCreateInput): Promise<Empresa> {
     const cnpjInUse = await this.db.empresa.findUnique({
