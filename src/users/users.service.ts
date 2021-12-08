@@ -71,7 +71,7 @@ export class UsersService {
     const user = await this.db.user.findMany();
     const userView = user.map(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      ({ password, id, role, createdAt, ...res }) => res,
+      ({ password, passwordConfirmation, role, createdAt, ...res }) => res,
     );
     return userView;
   }
