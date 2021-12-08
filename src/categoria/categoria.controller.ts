@@ -6,10 +6,15 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { Categoria } from '.prisma/client';
 import { CategoriaService } from './categoria.service';
 import { CreateCategoriaDto } from './dto/create-categoria.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { RolesGuard } from 'src/auth/role/roles.guard';
+import { Role } from 'src/auth/role/role.decorator';
+import { UserRole } from 'src/users/enum/role.enum';
 
 @Controller('categoria')
 export class CategoriaController {
