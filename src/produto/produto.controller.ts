@@ -38,13 +38,15 @@ export class ProdutoController {
     return this.produtoService.findOne(+id);
   }
 
+  @Role(UserRole.USER_COM)
+  @UseGuards(AuthGuard(), RolesGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProdutoDto: UpdateProdutoDto) {
     return this.produtoService.update(+id, updateProdutoDto);
   }
 
   @Delete('apagar/:id')
-  @Role(UserRole.ADMIN)
+  @Role(UserRole.USER_COM)
   @UseGuards(AuthGuard(), RolesGuard)
   remove(@Param('id') id: string) {
     return this.produtoService.remove(+id);

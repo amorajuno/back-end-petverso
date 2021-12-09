@@ -7,12 +7,17 @@ import { Empresa, Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { UpdateEmpresaDto } from './dto/update-empresa.dto';
 import * as cnpj from 'cnpj';
+import * as bcrypt from 'bcrypt';
+import { UserRole } from 'src/users/enum/role.enum';
 
 @Injectable()
 export class EmpresaService {
   constructor(private db: PrismaService) {}
 
-  async create(data: Prisma.EmpresaCreateInput): Promise<Empresa> {
+  async create(
+    data: Prisma.EmpresaCreateInput,
+    role: UserRole,
+  ): Promise<Empresa> {
     const cnpjInUse = await this.db.empresa.findUnique({
       where: { cnpj: data.cnpj },
     });
@@ -31,7 +36,20 @@ export class EmpresaService {
     if (emailInUse) {
       throw new BadRequestException('Email já está cadastrado');
     }
-    const empresa = await this.db.empresa.create({ data });
+    const saltRounds = 13;
+    const cryptPass = await bcrypt.hash(data.password, saltRounds);
+
+    const empresa = this.db.empresa.create({
+      data: {
+        ...data,
+        role: role,
+        password: cryptPass,
+        passwordConfirmation: cryptPass,
+      },
+    });
+
+    delete (await empresa).password;
+    delete (await empresa).passwordConfirmation;
     return empresa;
   }
 
@@ -52,8 +70,11 @@ export class EmpresaService {
     return empresa;
   }
 
-  update(id: number, updateEmpresaDto: UpdateEmpresaDto) {
-    return `This action updates a #${id} empresa`;
+  update(id: string, updateEmpresaDto: UpdateEmpresaDto) {
+    return this.db.empresa.update({
+      where: { id },
+      data: updateEmpresaDto,
+    });
   }
 
   async remove(id: string): Promise<{ message: string }> {

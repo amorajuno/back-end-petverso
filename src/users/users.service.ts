@@ -50,6 +50,7 @@ export class UsersService {
     }
 
     delete user.password;
+    delete user.passwordConfirmation;
     return user;
   }
 
@@ -62,6 +63,7 @@ export class UsersService {
     }
 
     delete user.password;
+    delete user.passwordConfirmation;
     delete user.email;
     delete user.id;
     return user;

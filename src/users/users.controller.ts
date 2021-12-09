@@ -52,7 +52,7 @@ export class UsersController {
   findMany() {
     return this.service.findMany();
   }
-
+  // unica rota que mostra todas as informações de todos os usuários.\/\/\/\/\/
   @Get('super-find-all')
   @Role(UserRole.ADMIN)
   @UseGuards(AuthGuard(), RolesGuard)
