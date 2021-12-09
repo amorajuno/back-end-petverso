@@ -9,6 +9,7 @@ export class CreateProdutoDto {
   @IsString()
   tipoAnimal: string;
 
+  @IsInt()
   preco: number;
 
   @IsString()

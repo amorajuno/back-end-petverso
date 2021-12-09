@@ -21,11 +21,11 @@ export class ProdutoService {
     return this.db.produto.findUnique({ where: { id } });
   }
 
-  update(id: number, updateProdutoDto: UpdateProdutoDto) {
+  update(id: string, updateProdutoDto: UpdateProdutoDto) {
     return `This action updates a #${id} produto`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} produto`;
   }
 }
