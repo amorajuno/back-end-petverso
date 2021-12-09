@@ -35,7 +35,7 @@ export class ProdutoController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.produtoService.findOne(+id);
+    return this.produtoService.findOne(id);
   }
 
   @Role(UserRole.USER_COM)
