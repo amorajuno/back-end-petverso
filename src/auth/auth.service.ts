@@ -23,13 +23,6 @@ export class AuthService {
       throw new NotFoundException('Usuário não encontrado');
     }
 
-    const empresa = await this.db.empresa.findUnique({
-      where: { email },
-    });
-
-    if (!empresa) {
-      throw new NotFoundException('Empresa não encontrada');
-    }
 
     const hashValid = await bcrypt.compare(password, user.password);
 
@@ -37,12 +30,10 @@ export class AuthService {
       throw new UnauthorizedException('Senha inválida');
     }
 
+    const empresa = 'cliente';
     delete user.password;
-    delete empresa.password;
     return {
       token: this.jwt.sign({ email }),
       user,
-      empresa,
     };
   }
-}
