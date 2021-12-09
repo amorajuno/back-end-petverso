@@ -7,5 +7,5 @@ export class CreateProdutoDto {
   conteudo: string;
   restricao: string;
   empresaID: string;
-  categoriaID: string;
+  categoriaID: number;
 }
