@@ -12,10 +12,10 @@ import {
 import { ProdutoService } from './produto.service';
 import { CreateProdutoDto } from './dto/create-produto.dto';
 import { UpdateProdutoDto } from './dto/update-produto.dto';
-import { UserRole } from 'src/users/enum/role.enum';
 import { AuthGuard } from '@nestjs/passport';
 import { Role } from 'src/auth/role/role.decorator';
 import { RolesGuard } from 'src/auth/role/roles.guard';
+import { UserRole } from 'src/empresa/enum/role.enum';
 
 @Controller('produto')
 export class ProdutoController {

@@ -14,11 +14,11 @@ export class ProdutoService {
   }
 
   findAll() {
-    return `This action returns all produto`;
+    return this.db.produto.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} produto`;
+  findOne(id: string) {
+    return this.db.produto.findUnique({ where: { id } });
   }
 
   update(id: number, updateProdutoDto: UpdateProdutoDto) {
