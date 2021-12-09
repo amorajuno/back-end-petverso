@@ -4,6 +4,8 @@ import { LoginDto, AuthResponse } from './dto/login.dto';
 import AuthUser from './auth-user.decorator';
 import { User } from '@prisma/client';
 import { AuthGuard } from '@nestjs/passport';
+import { AuthResponseEm, LoginDtoEm } from './dto/login-empresa.dto';
+
 @Controller('auth')
 export class AuthController {
   constructor(private service: AuthService) {}
@@ -11,6 +13,11 @@ export class AuthController {
   @Post('login')
   login(@Body() data: LoginDto): Promise<AuthResponse> {
     return this.service.login(data);
+  }
+
+  @Post('login-empresa')
+  loginCom(@Body() data: LoginDtoEm): Promise<AuthResponseEm> {
+    return this.service.loginCom(data);
   }
 
   @Get('me')
