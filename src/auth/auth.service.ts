@@ -30,6 +30,7 @@ export class AuthService {
     }
 
     delete user.password;
+    delete user.passwordConfirmation;
     return {
       token: this.jwt.sign({ email }),
       user,
@@ -52,6 +53,7 @@ export class AuthService {
     }
 
     delete empresa.password;
+    delete empresa.passwordConfirmation;
     return {
       token: this.jwt.sign({ cnpj }),
       empresa,
