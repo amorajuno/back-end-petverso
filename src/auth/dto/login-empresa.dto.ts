@@ -1,5 +1,5 @@
 import { IsString } from 'class-validator';
-import { Empresa } from '@prisma/client';
+import { Company } from '@prisma/client';
 export class LoginDtoEm {
   cnpj: string;
 
@@ -9,5 +9,5 @@ export class LoginDtoEm {
 
 export class AuthResponseEm {
   token: string;
-  empresa: Empresa;
+  company: Company;
 }

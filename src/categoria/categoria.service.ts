@@ -1,42 +1,42 @@
 import { Injectable } from '@nestjs/common';
 import { NotFoundException } from '@nestjs/common';
-import { UpdateCategoriaDto } from './dto/update-categoria.dto';
-import { Prisma, Categoria } from '.prisma/client';
+import { UpdateCategoryDto } from './dto/update-category.dto';
+import { Prisma, Category } from '.prisma/client';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
-export class CategoriaService {
+export class CategoryService {
   constructor(private db: PrismaService) {}
 
-  async create(data: Prisma.CategoriaCreateInput): Promise<Categoria> {
-    const categoria = await this.db.categoria.create({ data });
-    return categoria;
+  async create(data: Prisma.CategoryCreateInput): Promise<Category> {
+    const category = await this.db.category.create({ data });
+    return category;
   }
 
-  async findAll(): Promise<Categoria[]> {
-    const categoria = await this.db.categoria.findMany();
-    return categoria;
+  async findAll(): Promise<Category[]> {
+    const category = await this.db.category.findMany();
+    return category;
   }
 
-  async findOne(id: number): Promise<Categoria> {
-    const categoria = await this.db.categoria.findUnique({
+  async findOne(id: number): Promise<Category> {
+    const category = await this.db.category.findUnique({
       where: { id },
     });
 
-    if (!categoria) {
+    if (!category) {
       throw new NotFoundException('ID não encontrado');
     }
 
-    return categoria;
+    return category;
   }
 
-  update(id: number, updateCategoriaDto: UpdateCategoriaDto) {
-    return `This action updates a #${id} empresa`;
+  update(id: number, updateCategoryDto: UpdateCategoryDto) {
+    return `This action updates a #${id} company`;
   }
 
   async remove(id: number): Promise<{ message: string }> {
-    await this.db.categoria.delete({ where: { id } });
+    await this.db.category.delete({ where: { id } });
 
-    return { message: `Categoria com ID: ${id} deletada com sucesso.` };
+    return { message: `Category com ID: ${id} deletada com sucesso.` };
   }
 }

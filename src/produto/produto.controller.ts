@@ -1,4 +1,4 @@
-import { Produto } from '@prisma/client';
+import { Product } from '@prisma/client';
 import {
   Controller,
   Get,
@@ -9,46 +9,46 @@ import {
   Delete,
   UseGuards,
 } from '@nestjs/common';
-import { ProdutoService } from './produto.service';
-import { CreateProdutoDto } from './dto/create-produto.dto';
-import { UpdateProdutoDto } from './dto/update-produto.dto';
+import { ProductService } from './product.service';
+import { CreateProductDto } from './dto/create-product.dto';
+import { UpdateProductDto } from './dto/update-product.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Role } from 'src/auth/role/role.decorator';
 import { RolesGuard } from 'src/auth/role/roles.guard';
-import { UserRole } from 'src/empresa/enum/role.enum';
+import { UserRole } from 'src/company/enum/role.enum';
 
-@Controller('produto')
-export class ProdutoController {
-  constructor(private readonly produtoService: ProdutoService) {}
+@Controller('product')
+export class ProductController {
+  constructor(private readonly productService: ProductService) {}
 
   @Post('cadastrar')
   @Role(UserRole.USER_COM)
   @UseGuards(AuthGuard(), RolesGuard)
-  create(@Body() data: CreateProdutoDto): Promise<Produto> {
-    return this.produtoService.create(data);
+  create(@Body() data: CreateProductDto): Promise<Product> {
+    return this.productService.create(data);
   }
 
   @Get('todos')
   findAll() {
-    return this.produtoService.findAll();
+    return this.productService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.produtoService.findOne(id);
+    return this.productService.findOne(id);
   }
 
   @Role(UserRole.USER_COM)
   @UseGuards(AuthGuard(), RolesGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProdutoDto: UpdateProdutoDto) {
-    return this.produtoService.update(id, updateProdutoDto);
+  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
+    return this.productService.update(id, updateProductDto);
   }
 
   @Delete('apagar/:id')
   @Role(UserRole.USER_COM)
   @UseGuards(AuthGuard(), RolesGuard)
   remove(@Param('id') id: string) {
-    return this.produtoService.remove(id);
+    return this.productService.remove(id);
   }
 }

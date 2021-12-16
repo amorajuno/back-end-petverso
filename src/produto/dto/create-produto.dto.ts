@@ -1,10 +1,10 @@
 import { IsInt, IsString } from 'class-validator';
-export class CreateProdutoDto {
+export class CreateProductDto {
   @IsString()
   nome: string;
 
   @IsString()
-  categoria: string;
+  category: string;
 
   @IsString()
   tipoAnimal: string;
@@ -22,8 +22,8 @@ export class CreateProdutoDto {
   restricao: string;
 
   @IsString()
-  empresaID: string;
+  companyID: string;
 
   @IsInt()
-  categoriaID: number;
+  categoryID: number;
 }

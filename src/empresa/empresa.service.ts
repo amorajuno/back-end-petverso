@@ -3,34 +3,34 @@ import {
   NotFoundException,
   BadRequestException,
 } from '@nestjs/common';
-import { Empresa, Prisma } from '@prisma/client';
+import { Company, Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
-import { UpdateEmpresaDto } from './dto/update-empresa.dto';
+import { UpdateCompanyDto } from './dto/update-company.dto';
 import * as cnpj from 'cnpj';
 import * as bcrypt from 'bcrypt';
 import { UserRole } from 'src/users/enum/role.enum';
 
 @Injectable()
-export class EmpresaService {
+export class CompanyService {
   constructor(private db: PrismaService) {}
 
   async create(
-    data: Prisma.EmpresaCreateInput,
+    data: Prisma.CompanyCreateInput,
     role: UserRole,
-  ): Promise<Empresa> {
-    const cnpjInUse = await this.db.empresa.findUnique({
+  ): Promise<Company> {
+    const cnpjInUse = await this.db.company.findUnique({
       where: { cnpj: data.cnpj },
     });
     if (cnpjInUse) {
       throw new BadRequestException(
-        'Empresa/CNPJ já está cadastrada no nosso banco de dados!',
+        'Company/CNPJ já está cadastrada no nosso banco de dados!',
       );
     }
 
     if (!cnpj.validate(data.cnpj)) {
       throw new BadRequestException('Cnpj inválido');
     }
-    const emailInUse = await this.db.empresa.findUnique({
+    const emailInUse = await this.db.company.findUnique({
       where: { email: data.email },
     });
     if (emailInUse) {
@@ -39,7 +39,7 @@ export class EmpresaService {
     const saltRounds = 13;
     const cryptPass = await bcrypt.hash(data.password, saltRounds);
 
-    const empresa = this.db.empresa.create({
+    const company = this.db.company.create({
       data: {
         ...data,
         role: role,
@@ -48,38 +48,38 @@ export class EmpresaService {
       },
     });
 
-    delete (await empresa).password;
-    delete (await empresa).passwordConfirmation;
-    return empresa;
+    delete (await company).password;
+    delete (await company).passwordConfirmation;
+    return company;
   }
 
-  async findAll(): Promise<Empresa[]> {
-    const empresas = await this.db.empresa.findMany();
-    return empresas;
+  async findAll(): Promise<Company[]> {
+    const companys = await this.db.company.findMany();
+    return companys;
   }
 
-  async findOne(id: string): Promise<Empresa> {
-    const empresa = await this.db.empresa.findUnique({
+  async findOne(id: string): Promise<Company> {
+    const company = await this.db.company.findUnique({
       where: { id },
     });
 
-    if (!empresa) {
+    if (!company) {
       throw new NotFoundException('ID não encontrado');
     }
 
-    return empresa;
+    return company;
   }
 
-  update(id: string, updateEmpresaDto: UpdateEmpresaDto) {
-    return this.db.empresa.update({
+  update(id: string, updateCompanyDto: UpdateCompanyDto) {
+    return this.db.company.update({
       where: { id },
-      data: updateEmpresaDto,
+      data: updateCompanyDto,
     });
   }
 
   async remove(id: string): Promise<{ message: string }> {
-    await this.db.empresa.delete({ where: { id } });
+    await this.db.company.delete({ where: { id } });
 
-    return { message: `Empresa com ID: ${id} deletada com sucesso.` };
+    return { message: `Company com ID: ${id} deletada com sucesso.` };
   }
 }

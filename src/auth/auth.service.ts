@@ -7,7 +7,7 @@ import { PrismaService } from 'src/prisma.service';
 import { AuthResponse, LoginDto } from './dto/login.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { AuthResponseEm, LoginDtoEm } from './dto/login-empresa.dto';
+import { AuthResponseEm, LoginDtoEm } from './dto/login-company.dto';
 
 @Injectable()
 export class AuthService {
@@ -39,24 +39,24 @@ export class AuthService {
 
   async loginCom(login: LoginDtoEm): Promise<AuthResponseEm> {
     const { cnpj, password } = login;
-    const empresa = await this.db.empresa.findUnique({
+    const company = await this.db.company.findUnique({
       where: { cnpj },
     });
 
-    if (!empresa) {
-      throw new NotFoundException('Empresa não encontrada');
+    if (!company) {
+      throw new NotFoundException('Company não encontrada');
     }
-    const hashValid = await bcrypt.compare(password, empresa.password);
+    const hashValid = await bcrypt.compare(password, company.password);
 
     if (!hashValid) {
       throw new UnauthorizedException('Senha inválida');
     }
 
-    delete empresa.password;
-    delete empresa.passwordConfirmation;
+    delete company.password;
+    delete company.passwordConfirmation;
     return {
       token: this.jwt.sign({ cnpj }),
-      empresa,
+      company,
     };
   }
 }

@@ -4,7 +4,7 @@ import { LoginDto, AuthResponse } from './dto/login.dto';
 import AuthUser from './auth-user.decorator';
 import { User } from '@prisma/client';
 import { AuthGuard } from '@nestjs/passport';
-import { AuthResponseEm, LoginDtoEm } from './dto/login-empresa.dto';
+import { AuthResponseEm, LoginDtoEm } from './dto/login-company.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -15,7 +15,7 @@ export class AuthController {
     return this.service.login(data);
   }
 
-  @Post('login-empresa')
+  @Post('login-company')
   loginCom(@Body() data: LoginDtoEm): Promise<AuthResponseEm> {
     return this.service.loginCom(data);
   }
