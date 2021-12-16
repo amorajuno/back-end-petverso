@@ -26,7 +26,7 @@ model User {
   createdAt            DateTime @default(now())
 }
 
-model Empresa {
+model Company {
   id                   String    @id @unique @default(uuid())
   nome                 String    @unique
   password             String
@@ -35,13 +35,22 @@ model Empresa {
   cnpj                 String    @unique
   role                 String    @default("USER_COM")
   createdAt            DateTime  @default(now())
-  produtos             Produto[]
+  products             Product[]
 }
 
-model Produto {
+model Category {
+  id       Int      @id @default(autoincrement())
+  nome     String
+  products Product[]
+}
+model Cart{
+  id       Int      @id @default(autoincrement())
+
+}
+model Product {
   id          String     @id @unique @default(uuid())
   nome        String
-  categoria   String
+  category    String
   tipoAnimal  String
   preco       Int
   descricao   String
@@ -49,14 +58,9 @@ model Produto {
   restricao   String
   updatedAt   DateTime   @updatedAt
   addedAt     DateTime   @default(now())
-  empresaID   String
-  categoriaID Int
-  empresa     Empresa?   @relation(fields: [empresaID], references: [id])
-  categorias  Categoria? @relation(fields: [categoriaID], references: [id])
+  companyID   String
+  categoryID  Int
+  company     Company?   @relation(fields: [companyID], references: [id])
+  categories  Category? @relation(fields: [categoryID], references: [id])
 }
 
-model Categoria {
-  id       Int      @id @default(autoincrement())
-  nome     String
-  produtos Produto[]
-}
