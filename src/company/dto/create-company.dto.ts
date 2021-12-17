@@ -4,4 +4,8 @@ export class CreateCompanyDto {
   passwordConfirmation: string;
   cnpj: string;
   email: string;
+  phone: string;
+  cep: string;
+  address1: string;
+  address2: string;
 }
