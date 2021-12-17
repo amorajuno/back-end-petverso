@@ -3,6 +3,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { jwtConstants } from './jwt.constants';
+import { error } from 'console';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -14,10 +15,25 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: { email: string }) {
+  async validate(payload: { email: string }, comPayload: { cnpj: string }) {
     const user = await this.db.user.findUnique({
       where: { email: payload.email },
     });
-    return user;
+
+    const company = await this.db.company.findUnique({
+      where: { cnpj: comPayload.cnpj },
+    });
+    if (user) {
+      if (!user) {
+        return error(401);
+      }
+      return user;
+    }
+    if (company) {
+      if (!company) {
+        return error(401);
+      }
+      return company;
+    }
   }
 }

@@ -44,7 +44,7 @@ export class AuthService {
     });
 
     if (!company) {
-      throw new NotFoundException('Company não encontrada');
+      throw new NotFoundException('Company not registered in our database');
     }
     const hashValid = await bcrypt.compare(password, company.password);
 

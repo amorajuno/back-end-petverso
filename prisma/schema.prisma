@@ -21,6 +21,7 @@ model User {
   role                 String   @default("USER")
   cpf                  String   @unique
   cep                  String
+  phone                String
   address1             String?
   address2             String?
   createdAt            DateTime @default(now())
@@ -32,7 +33,11 @@ model Company {
   password             String
   passwordConfirmation String
   email                String    @unique
+  phone                String
   cnpj                 String    @unique
+  cep                  String
+  address1             String?
+  address2             String?
   role                 String    @default("USER_COM")
   createdAt            DateTime  @default(now())
   products             Product[]
