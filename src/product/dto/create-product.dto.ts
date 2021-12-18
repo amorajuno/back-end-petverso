@@ -7,6 +7,9 @@ export class CreateProductDto {
   category: string;
 
   @IsString()
+  imgUrl: string;
+
+  @IsString()
   tipoAnimal: string;
 
   @IsInt()
