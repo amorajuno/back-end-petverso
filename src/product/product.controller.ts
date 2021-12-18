@@ -38,9 +38,9 @@ export class ProductController {
     return this.productService.findOne(id);
   }
 
+  @Patch(':id')
   // @Role(UserRole.USER_COM)
   // @UseGuards(AuthGuard(), RolesGuard)
-  @Patch(':id')
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
     return this.productService.update(id, updateProductDto);
   }
