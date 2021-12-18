@@ -39,4 +39,6 @@ export class CreateUserDto {
   address1: string;
 
   address2: string;
+
+  phone: string;
 }
