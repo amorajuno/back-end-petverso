@@ -39,8 +39,8 @@ export class CompanyController {
   }
 
   @Patch(':id')
-  // @Role(UserRole.USER_COM)
-  // @UseGuards(AuthGuard(), RolesGuard)
+  @Role(UserRole.USER_COM)
+  @UseGuards(AuthGuard(), RolesGuard)
   update(@Param('id') id: string, @Body() updateCompanyDto: UpdateCompanyDto) {
     return this.companyService.update(id, updateCompanyDto);
   }

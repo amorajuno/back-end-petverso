@@ -36,33 +36,33 @@ export class UsersController {
   }
 
   @Get('buscar/:id')
-  // @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard())
   findOne(@Param('id') id: string): Promise<User> {
     return this.service.findOne(id);
   }
 
   @Get('buscar/name/:username')
-  // @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard())
   findOneByName(@Param('username') username: string): Promise<User> {
     return this.service.findOneByName(username);
   }
 
   @Get('buscar-todos')
-  // @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard())
   findMany() {
     return this.service.findMany();
   }
   // unica rota que mostra todas as informações de todos os usuários.\/\/\/\/\/
   @Get('super-find-all')
-  // @Role(UserRole.ADMIN)
-  // @UseGuards(AuthGuard(), RolesGuard)
+  @Role(UserRole.ADMIN)
+  @UseGuards(AuthGuard(), RolesGuard)
   findAll() {
     return this.service.findAll();
   }
 
   @Delete('deletar/:id')
-  // @Role(UserRole.ADMIN)
-  // @UseGuards(AuthGuard(), RolesGuard)
+  @Role(UserRole.ADMIN)
+  @UseGuards(AuthGuard(), RolesGuard)
   deleteOne(@Param('id') id: string): Promise<{ message: string }> {
     return this.service.deleteOne(id);
   }

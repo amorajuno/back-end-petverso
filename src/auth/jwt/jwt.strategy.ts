@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { jwtConstants } from './jwt.constants';
 import { error } from 'console';
+import { Company, User } from '@prisma/client';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -15,25 +16,19 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: { email: string }, comPayload: { cnpj: string }) {
-    const user = await this.db.user.findUnique({
-      where: { email: payload.email },
-    });
-
-    const company = await this.db.company.findUnique({
-      where: { cnpj: comPayload.cnpj },
-    });
-    if (user) {
-      if (!user) {
-        return error(401);
-      }
-      return user;
-    }
-    if (company) {
-      if (!company) {
-        return error(401);
-      }
-      return company;
+  async validate(payload: { email: string; cnpj: string }) {
+    let company: Company = null;
+    let user: User = null;
+    if (payload.cnpj) {
+      company = await this.db.company.findUnique({
+        where: { cnpj: payload.cnpj },
+      });
+      return company ?? error(401);
+    } else {
+      user = await this.db.user.findUnique({
+        where: { email: payload.email },
+      });
+      return user ?? error(401);
     }
   }
 }
