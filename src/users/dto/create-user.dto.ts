@@ -27,7 +27,7 @@ export class CreateUserDto {
   passwordConfirmation: string;
 
   @IsString()
-  nome: string;
+  name: string;
 
   @IsString()
   username: string;

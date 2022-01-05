@@ -21,8 +21,8 @@ import { UserRole } from 'src/company/enum/role.enum';
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
-  @Post('cadastrar')
-  @Role(UserRole.USER_COM)
+  @Post()
+  // @Role(UserRole.USER_COM)
   @UseGuards(AuthGuard(), RolesGuard)
   create(@Body() data: CreateProductDto): Promise<Product> {
     return this.productService.create(data);
