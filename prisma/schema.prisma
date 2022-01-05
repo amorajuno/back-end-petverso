@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
@@ -20,53 +20,67 @@ model User {
   passwordConfirmation String
   role                 String   @default("USER")
   cpf                  String   @unique
+  birthday             String
+  city                 String
+  state                String
   cep                  String
   phone                String
   address1             String?
   address2             String?
   createdAt            DateTime @default(now())
+  carts                Cart[]
 }
 
 model Company {
   id                   String    @id @unique @default(uuid())
-  nome                 String    @unique
+  username             String    @unique
+  birthday             String
+  phone                String
   password             String
   passwordConfirmation String
+  corporateName        String
   email                String    @unique
-  phone                String
   cnpj                 String    @unique
-  cep                  String
+  city                 String
+  state                String
   address1             String?
   address2             String?
+  cep                  String
   role                 String    @default("USER_COM")
   createdAt            DateTime  @default(now())
   products             Product[]
 }
 
 model Category {
-  id       Int      @id @default(autoincrement())
+  id       Int       @id @default(autoincrement())
   nome     String
   products Product[]
 }
-model Cart{
-  id       Int      @id @default(autoincrement())
 
+model Cart {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  userID    String
+  user      User[]    @relation(fields: [userID], references: [id])
+  products  Product[]
 }
+
 model Product {
-  id          String     @id @unique @default(uuid())
-  nome        String
-  category    String
-  imgUrl      String
-  tipoAnimal  String
-  preco       Int
-  descricao   String
-  conteudo    String
-  restricao   String
-  updatedAt   DateTime   @updatedAt
-  addedAt     DateTime   @default(now())
-  companyID   String
-  categoryID  Int
-  company     Company?   @relation(fields: [companyID], references: [id])
-  categories  Category? @relation(fields: [categoryID], references: [id])
+  id           String    @id @unique @default(uuid())
+  name         String
+  category     String
+  imgUrl       String
+  animalType   String
+  price        Int
+  description  String
+  contains     String
+  restrictions String
+  quantity     Int
+  updatedAt    DateTime  @updatedAt
+  addedAt      DateTime  @default(now())
+  companyID    String
+  categoryID   Int
+  company      Company?  @relation(fields: [companyID], references: [id])
+  categories   Category? @relation(fields: [categoryID], references: [id])
+  carts        Cart[]
 }
-

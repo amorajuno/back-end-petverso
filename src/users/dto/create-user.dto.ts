@@ -7,7 +7,7 @@ import {
 } from 'class-validator';
 
 export class CreateUserDto {
-  @IsEmail()
+  @IsEmail({ message: 'por favor informe um email válido' })
   email: string;
 
   @IsString()
@@ -32,13 +32,27 @@ export class CreateUserDto {
   @IsString()
   username: string;
 
+  @IsString()
   cep: string;
 
+  @IsString()
   cpf: string;
 
+  @IsString()
   address1: string;
 
+  @IsString()
   address2: string;
 
+  @IsString()
   phone: string;
+
+  @IsString()
+  birthday: string;
+
+  @IsString()
+  city: string;
+
+  @IsString()
+  state: string;
 }

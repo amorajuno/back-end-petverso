@@ -22,10 +22,10 @@ export class ProductService {
   }
 
   update(id: string, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+    return this.db.product.update({ where: { id }, data: updateProductDto });
   }
 
   remove(id: string) {
-    return `This action removes a #${id} product`;
+    return this.db.product.delete({ where: { id } });
   }
 }

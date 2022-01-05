@@ -17,6 +17,10 @@ export class UsersService {
       where: { email: data.email },
     });
 
+    if (!cpfValidate.isMasked(data.cpf)) {
+      cpfValidate.mask(data.cpf);
+    }
+
     if (!cpfValidate.validate(data.cpf)) {
       throw new BadRequestException('CPF inválido');
     }

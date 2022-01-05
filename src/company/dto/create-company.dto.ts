@@ -1,5 +1,9 @@
 export class CreateCompanyDto {
-  nome: string;
+  username: string;
+  birthday: string;
+  corporateName: string;
+  city: string;
+  state: string;
   password: string;
   passwordConfirmation: string;
   cnpj: string;
