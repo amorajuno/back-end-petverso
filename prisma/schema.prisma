@@ -14,12 +14,12 @@ datasource db {
 model User {
   id                   String   @id @unique @default(uuid())
   name                 String
-  email                String   
+  email                String   @unique
   username             String
   password             String
   passwordConfirmation String
   role                 String   @default("USER")
-  cpf                  String   
+  cpf                  String   @unique
   birthday             String
   city                 String
   state                String
