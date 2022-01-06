@@ -73,13 +73,12 @@ model ProductCart {
   productID    String  @unique
   product      Product @relation(fields: [productID], references: [id])
   productQnty  Int
-  totalPrice Decimal
+  totalPrice   Decimal
 }
 
 model Product {
   id           String        @id @unique @default(uuid())
   name         String
-  category     String
   imgUrl       String
   animalType   String
   price        Decimal
@@ -93,5 +92,5 @@ model Product {
   categoryID   Int
   company      Company?      @relation(fields: [companyID], references: [id])
   categories   Category?     @relation(fields: [categoryID], references: [id])
-  Session      ProductCart[]
+  session      ProductCart[]
 }

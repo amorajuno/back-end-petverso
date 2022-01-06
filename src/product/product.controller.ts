@@ -23,7 +23,7 @@ export class ProductController {
 
   @Post()
   // @Role(UserRole.USER_COM)
-  @UseGuards(AuthGuard(), RolesGuard)
+  // @UseGuards(AuthGuard(), RolesGuard)
   create(@Body() data: CreateProductDto): Promise<Product> {
     return this.productService.create(data);
   }
