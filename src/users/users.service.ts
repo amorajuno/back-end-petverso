@@ -13,6 +13,7 @@ import * as cpfValidate from 'node-cpf';
 export class UsersService {
   constructor(private db: PrismaService) {}
   async create(data: Prisma.UserCreateInput, role: UserRole): Promise<User> {
+    console.log(data);
     const emailInUse = await this.db.user.findUnique({
       where: { email: data.email },
     });
