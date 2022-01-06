@@ -22,8 +22,8 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Post()
-  // @Role(UserRole.USER_COM)
-  // @UseGuards(AuthGuard(), RolesGuard)
+  @Role(UserRole.USER_COM)
+  @UseGuards(AuthGuard(), RolesGuard)
   create(@Body() data: CreateProductDto): Promise<Product> {
     return this.productService.create(data);
   }
@@ -39,15 +39,15 @@ export class ProductController {
   }
 
   @Patch(':id')
-  // @Role(UserRole.USER_COM)
-  // @UseGuards(AuthGuard(), RolesGuard)
+  @Role(UserRole.USER_COM)
+  @UseGuards(AuthGuard(), RolesGuard)
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
     return this.productService.update(id, updateProductDto);
   }
 
   @Delete('apagar/:id')
-  // @Role(UserRole.USER_COM)
-  // @UseGuards(AuthGuard(), RolesGuard)
+  @Role(UserRole.USER_COM)
+  @UseGuards(AuthGuard(), RolesGuard)
   remove(@Param('id') id: string) {
     return this.productService.remove(id);
   }
