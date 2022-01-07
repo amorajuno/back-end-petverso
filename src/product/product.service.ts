@@ -18,7 +18,12 @@ export class ProductService {
   }
 
   findOne(id: string) {
-    return this.db.product.findUnique({ where: { id } });
+    return this.db.product.findUnique({
+      where: { id },
+      include: {
+        company: true,
+      },
+    });
   }
 
   update(id: string, updateProductDto: UpdateProductDto) {

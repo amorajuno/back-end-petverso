@@ -38,19 +38,7 @@ export class CartService {
       },
       where: { productID: data.productID },
     });
-
-    // testando o uso de upsert para não precisar
-    // pesquisar a existencia do produto no carrinho
-    // const previousAdded = await this.db.productCart.findFirst({
-    //   where: { productID: data.productID },
-    //   select: { productQnty: true, totalPrice: true },
-    // });
-    // if (previousAdded) {
-    //   this.db.productCart.upsert;
-    // }
     return { ...cart, ...productCart };
-
-    // const product = await this.db.product.findUnique({ where: { id } });
   }
 
   findOne(id: number) {
