@@ -14,7 +14,7 @@ export class ProductService {
   }
 
   findAll() {
-    return this.db.product.findMany();
+    return this.db.product.findMany({ include: { company: true } });
   }
 
   findOne(id: string) {
