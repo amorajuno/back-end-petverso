@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Cart } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
-import { Product } from 'src/product/entities/produto.entity';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
 
@@ -25,6 +24,10 @@ export class CartService {
       where: { id: data.productID },
       select: { price: true },
     });
+    const qnt = data.productQnty;
+
+    const price = product.price;
+    console.log(typeof price, price, typeof qnt, qnt);
     const productCart = await this.db.productCart.upsert({
       create: {
         productID: data.productID,
@@ -34,22 +37,37 @@ export class CartService {
       },
       update: {
         productQnty: data.productQnty,
-        totalPrice: product.price,
+        totalPrice: price.mul(qnt),
       },
       where: { productID: data.productID },
     });
     return { ...cart, ...productCart };
   }
 
-  findOne(id: number) {
-    return this.db.cart.findUnique({ where: { id } });
+  findOne(id: string) {
+    return this.db.cart.findUnique({
+      where: { id },
+      include: { productList: true },
+    });
   }
 
-  update(id: number, updateCartDto: UpdateCartDto) {
-    return this.db.cart.update({ where: { id }, data: updateCartDto });
+  async updateQnty(id: string, updateCartDto: UpdateCartDto) {
+    return await this.db.productCart.update({
+      where: { id },
+      data: {
+        productQnty: updateCartDto.productQnty,
+      },
+    });
+  }
+  async clearCart(cartID: string) {
+    return await this.db.productCart.deleteMany({
+      where: { id: cartID },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} cart`;
+  removeFromCart(id: string) {
+    return this.db.productCart.delete({
+      where: { id },
+    });
   }
 }

@@ -28,7 +28,7 @@ export class ProductController {
     return this.productService.create(data);
   }
 
-  @Get('todos')
+  @Get('all')
   findAll() {
     return this.productService.findAll();
   }

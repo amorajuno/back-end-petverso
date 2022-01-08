@@ -58,22 +58,22 @@ model Category {
 }
 
 model Cart {
-  id        Int           @id @default(autoincrement())
-  createdAt DateTime      @default(now())
-  userID    String        @unique
-  user      User?         @relation(fields: [userID], references: [id])
-  session   ProductCart[]
-  closed    Boolean       @default(false)
+  id          String        @id @unique @default(uuid())
+  createdAt   DateTime      @default(now())
+  userID      String        @unique
+  user        User?         @relation(fields: [userID], references: [id])
+  productList ProductCart[]
+  closed      Boolean       @default(false)
 }
 
 model ProductCart {
-  id           Int     @id @default(autoincrement())
-  cartId       Int
-  cart         Cart    @relation(fields: [cartId], references: [id])
-  productID    String  @unique
-  product      Product @relation(fields: [productID], references: [id])
-  productQnty  Int
-  totalPrice   Decimal
+  id          String  @id @unique @default(uuid())
+  cartId      String
+  cart        Cart    @relation(fields: [cartId], references: [id])
+  productID   String  @unique
+  product     Product @relation(fields: [productID], references: [id])
+  productQnty Int
+  totalPrice  Decimal
 }
 
 model Product {
