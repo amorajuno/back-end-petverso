@@ -13,12 +13,12 @@ export class ProductService {
     return product;
   }
 
-  findAll() {
-    return this.db.product.findMany({ include: { company: true } });
+  async findAll() {
+    return await this.db.product.findMany({ include: { company: true } });
   }
 
-  findOne(id: string) {
-    return this.db.product.findUnique({
+  async findOne(id: string) {
+    return await this.db.product.findUnique({
       where: { id },
       include: {
         company: true,
@@ -26,8 +26,24 @@ export class ProductService {
     });
   }
 
-  update(id: string, updateProductDto: UpdateProductDto) {
-    return this.db.product.update({ where: { id }, data: updateProductDto });
+  async findByCat(id: number) {
+    return await this.db.category.findMany({
+      where: { id },
+      include: { products: true },
+    });
+  }
+
+  async findByName(searchName: string) {
+    return await this.db.product.findMany({
+      where: {
+        name: {
+          contains: searchName,
+        },
+      },
+    });
+  }
+  async update(id: string, updateProductDto: UpdateProductDto) {
+    return await this.db.product.update({ where: { id }, data: updateProductDto });
   }
 
   remove(id: string) {
