@@ -83,7 +83,7 @@ export class CartService {
 
   async closeCart(id: string): Promise<Cart> {
     const cart = await this.findOne(id);
-    const products = cart.productList.map(id)
+    // const products = cart.productList.map(id)
 
     console.log(cart);
 
