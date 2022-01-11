@@ -33,7 +33,7 @@ export class CartService {
         productID: data.productID,
         cartId: cart.id,
         productQnty: data.productQnty,
-        totalPrice: product.price,
+        totalPrice: price.mul(qnt),
       },
       update: {
         productQnty: data.productQnty,
@@ -44,30 +44,74 @@ export class CartService {
     return { ...cart, ...productCart };
   }
 
-  findOne(id: string) {
-    return this.db.cart.findUnique({
+  async findOne(id: string) {
+    return await this.db.cart.findUnique({
       where: { id },
       include: { productList: true },
     });
   }
 
-  async updateQnty(id: string, updateCartDto: UpdateCartDto) {
-    return await this.db.productCart.update({
+  async updateQnty(id: string, data: UpdateCartDto) {
+    const product = await this.db.product.findUnique({
+      where: { id: data.productID },
+      select: { price: true },
+    });
+    const qnt = data.productQnty;
+
+    const price = product.price;
+    const cartUpdate = await this.db.productCart.update({
       where: { id },
       data: {
-        productQnty: updateCartDto.productQnty,
+        productQnty: data.productQnty,
+        totalPrice: price.mul(qnt),
       },
     });
+    return { ...cartUpdate };
   }
+
   async clearCart(cartID: string) {
     return await this.db.productCart.deleteMany({
       where: { id: cartID },
     });
   }
 
-  removeFromCart(id: string) {
-    return this.db.productCart.delete({
+  async removeFromCart(id: string) {
+    return await this.db.productCart.delete({
       where: { id },
     });
   }
+
+  async closeCart(id: string): Promise<Cart> {
+    const cart = await this.findOne(id);
+    const products = cart.productList.map(id)
+
+    console.log(cart);
+
+    return await cart;
+  }
+
+  //   const updateStorage = this.db.product.updateMany({
+  //     where: { id },
+  //     data: {
+  //       quantity: { decrement: qnt },
+  //     },
+  //   });
+
+  //   return await this.db.cart.update({
+  //     where: { id },
+  //     data: {
+  //       closed: true,
+  //     },
+  //   });
+  // }
 }
+
+
+
+// db.cart.findUnique({
+//   where: { id },
+//   include: { productList: true },
+// });
+// const products = this.findOneproductList.findMany();
+
+

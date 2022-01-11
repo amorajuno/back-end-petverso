@@ -6,9 +6,6 @@ import {
   Patch,
   Param,
   Delete,
-  UsePipes,
-  ValidationPipe,
-  ParseIntPipe,
 } from '@nestjs/common';
 import { CartService } from './cart.service';
 import { CreateCartDto } from './dto/create-cart.dto';
@@ -38,10 +35,16 @@ export class CartController {
     return this.cartService.updateQnty(id, updateCartDto);
   }
 
+  @Get('close/:id')
+  closeCart(@Param('id') id: string) {
+    return this.cartService.closeCart(id);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.cartService.removeFromCart(id);
   }
+
   @Delete('/:cartID/:pID')
   clearCart(@Param('id') pID: string, cartID: string) {
     return this.cartService.clearCart(pID);

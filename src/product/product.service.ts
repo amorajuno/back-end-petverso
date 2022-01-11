@@ -43,7 +43,10 @@ export class ProductService {
     });
   }
   async update(id: string, updateProductDto: UpdateProductDto) {
-    return await this.db.product.update({ where: { id }, data: updateProductDto });
+    return await this.db.product.update({
+      where: { id },
+      data: updateProductDto,
+    });
   }
 
   remove(id: string) {

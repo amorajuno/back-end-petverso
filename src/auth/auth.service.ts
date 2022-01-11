@@ -21,12 +21,12 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new NotFoundException('Usuário não encontrado');
+      throw new NotFoundException('User not found');
     }
     const hashValid = await bcrypt.compare(password, user.password);
 
     if (!hashValid) {
-      throw new UnauthorizedException('Senha inválida');
+      throw new UnauthorizedException('Incorrect password');
     }
 
     delete user.password;

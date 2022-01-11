@@ -37,10 +37,12 @@ export class ProductController {
   findOne(@Param('id') id: string) {
     return this.productService.findOne(id);
   }
+
   @Get('/cat/:id')
   findByCat(@Param('id') id: number) {
     return this.productService.findByCat(+id);
   }
+
   @Get('/byname/:searchName')
   findByName(@Param('searchName') searchName: string) {
     return this.productService.findByName(searchName);
