@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Cart } from '@prisma/client';
+import { Decimal } from '@prisma/client/runtime';
 import { PrismaService } from 'src/prisma.service';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
@@ -81,37 +82,42 @@ export class CartService {
     });
   }
 
+  // async updateStorage(id: string) { 
+  //   return await this.db. list.map((productCart) => {
+  //     // for (product in productCart) {
+  //       this.db.product.updateMany({
+  //         where: { id: productCart.productID },
+  //         data: {
+  //           quantity: { decrement: productCart.productQnty },
+  //         },
+  //       });
+  //     }
+  //   );
+  // }
+
   async closeCart(id: string): Promise<Cart> {
     const cart = await this.findOne(id);
     // const products = cart.productList.map(id)
+    const list = cart.productList;
+    const productToBuy = list.map((product) => product.totalPrice);
 
-    console.log(cart);
+    const sum = productToBuy.reduce((a, b) => b.add(a), new Decimal(0));
 
-    return await cart;
+    console.log(sum);
+
+    return this.db.cart.update({
+      where: { id },
+      data: {
+        closed: true,
+      },
+    });
   }
-
-  //   const updateStorage = this.db.product.updateMany({
-  //     where: { id },
-  //     data: {
-  //       quantity: { decrement: qnt },
-  //     },
-  //   });
-
-  //   return await this.db.cart.update({
-  //     where: { id },
-  //     data: {
-  //       closed: true,
-  //     },
-  //   });
-  // }
 }
 
-
+//   return await
 
 // db.cart.findUnique({
 //   where: { id },
 //   include: { productList: true },
 // });
 // const products = this.findOneproductList.findMany();
-
-

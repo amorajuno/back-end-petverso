@@ -35,7 +35,7 @@ export class CartController {
     return this.cartService.updateQnty(id, updateCartDto);
   }
 
-  @Get('close/:id')
+  @Patch('close/:id')
   closeCart(@Param('id') id: string) {
     return this.cartService.closeCart(id);
   }
