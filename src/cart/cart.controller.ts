@@ -29,7 +29,10 @@ export class CartController {
   findOne(@Param('id') id: string) {
     return this.cartService.findOne(id);
   }
-
+  @Get('/user/:id')
+  findOneByUser(@Param('id') id: string) {
+    return this.cartService.findOneByUser(id);
+  }
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCartDto: UpdateCartDto) {
     return this.cartService.updateQnty(id, updateCartDto);

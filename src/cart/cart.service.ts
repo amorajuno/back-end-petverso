@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Cart } from '@prisma/client';
+import { Cart, User } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime';
 import { PrismaService } from 'src/prisma.service';
 import { CreateCartDto } from './dto/create-cart.dto';
@@ -52,6 +52,16 @@ export class CartService {
     });
   }
 
+  async findOneByUser(id: string): Promise<User> {
+    let cart = null;
+    cart = await this.db.cart.findFirst({
+      where: { userID: id, closed: false },
+      select: { id: true, productList: true },
+    });
+    console.log(cart);
+    return cart;
+  }
+
   async updateQnty(id: string, data: UpdateCartDto) {
     const product = await this.db.product.findUnique({
       where: { id: data.productID },
@@ -82,7 +92,7 @@ export class CartService {
     });
   }
 
-  // async updateStorage(id: string) { 
+  // async updateStorage(id: string) {
   //   return await this.db. list.map((productCart) => {
   //     // for (product in productCart) {
   //       this.db.product.updateMany({
