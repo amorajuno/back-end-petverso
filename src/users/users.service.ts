@@ -50,6 +50,7 @@ export class UsersService {
   async findOne(id: string): Promise<User> {
     const user = await this.db.user.findUnique({
       where: { id },
+      include: { carts: true },
     });
     if (!user) {
       throw new NotFoundException('ID não encontrado');

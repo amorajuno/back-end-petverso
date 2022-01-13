@@ -34,6 +34,8 @@ export class CompanyController {
   }
 
   @Get(':id')
+  @Role(UserRole.USER_COM)
+  @UseGuards(AuthGuard(), RolesGuard)
   findOne(@Param('id') id: string) {
     return this.companyService.findOne(id);
   }
