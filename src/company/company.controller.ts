@@ -12,7 +12,7 @@ import { Company } from '@prisma/client';
 import { CompanyService } from './company.service';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
-import { UserRole } from './enum/role.enum';
+import { UserRole } from '../users/enum/role.enum';
 import { Role } from 'src/auth/role/role.decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/auth/role/roles.guard';
