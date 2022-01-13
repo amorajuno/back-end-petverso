@@ -61,6 +61,7 @@ export class CompanyService {
   async findOne(id: string): Promise<Company> {
     const company = await this.db.company.findUnique({
       where: { id },
+      include: { products: true },
     });
 
     if (!company) {
