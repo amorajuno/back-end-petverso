@@ -88,12 +88,13 @@ export class UsersService {
   async findAll() {
     return this.db.user.findMany({});
   }
-  async updateOne(
-    data: UpdateUserDto,
-    id: string,
-  ): Promise<User> {
-    return this.db.user.update({ where: { id }, data: { data } });
-  }
+
+  // async updateOne(
+  //   data: UpdateUserDto,
+  //   id: string,
+  // ): Promise<User> {
+  //   return this.db.user.update({ where: { id }, data: { data } });
+  // }
 
   async deleteOne(id: string): Promise<{ message: string }> {
     await this.db.user.delete({

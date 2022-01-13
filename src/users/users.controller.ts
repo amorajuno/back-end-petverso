@@ -61,12 +61,12 @@ export class UsersController {
     return this.service.findAll();
   }
 
-  @Patch(':id')
-  @Role(UserRole.USER)
-  @UseGuards(AuthGuard(), RolesGuard)
-  updateOne(@Param('id') id: string): {
-    return this.service.updateOne(id);
-  }
+  // @Patch(':id')
+  // @Role(UserRole.USER)
+  // @UseGuards(AuthGuard(), RolesGuard)
+  // updateOne(@Param('id') id: string): {
+  //   return this.service.updateOne(id);
+  // }
 
   @Delete('deletar/:id')
   @Role(UserRole.USER)
