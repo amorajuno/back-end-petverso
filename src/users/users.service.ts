@@ -8,7 +8,7 @@ import { PrismaService } from 'src/prisma.service';
 import { UserRole } from './enum/role.enum';
 import * as bcrypt from 'bcrypt';
 import * as cpfValidate from 'node-cpf';
-import { UpdateUserDto } from './dto/update-cart.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -89,7 +89,7 @@ export class UsersService {
     return this.db.user.findMany({});
   }
   async updateOne(
-    data: Prisma.UserUpdateOneWithoutCartsInput,
+    data: UpdateUserDto,
     id: string,
   ): Promise<User> {
     return this.db.user.update({ where: { id }, data: { data } });

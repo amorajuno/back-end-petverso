@@ -60,6 +60,7 @@ export class UsersController {
   findAll() {
     return this.service.findAll();
   }
+
   @Patch(':id')
   @Role(UserRole.USER)
   @UseGuards(AuthGuard(), RolesGuard)

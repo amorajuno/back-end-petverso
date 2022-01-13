@@ -76,6 +76,67 @@ async function main() {
         create: { name: 'Cat food' },
     });
 
+    const dogFood = await prisma.category.upsert({
+        where: { id: 3 },
+        update: {},
+        create: { name: 'Dog food' },
+    });
+
+    const catFood = await prisma.category.upsert({
+        where: { id: 4 },
+        update: {},
+        create: { name: 'Cat food' },
+    });
+
+    const dogFood = await prisma.category.upsert({
+        where: { id: 5 },
+        update: {},
+        create: { name: 'Dog food' },
+    });
+
+    const catFood = await prisma.category.upsert({
+        where: { id: 6 },
+        update: {},
+        create: { name: 'Cat food' },
+    });
+
+    const dogFood = await prisma.category.upsert({
+        where: { id: 7 },
+        update: {},
+        create: { name: 'Dog food' },
+    });
+
+    const catFood = await prisma.category.upsert({
+        where: { id: 8 },
+        update: {},
+        create: { name: 'Cat food' },
+    });
+
+    const dogFood = await prisma.category.upsert({
+        where: { id: 9 },
+        update: {},
+        create: { name: 'Dog food' },
+    });
+
+    const catFood = await prisma.category.upsert({
+        where: { id: 10 },
+        update: {},
+        create: { name: 'Cat food' },
+    });
+
+    const dogFood = await prisma.category.upsert({
+        where: { id: 11 },
+        update: {},
+        create: { name: 'Dog food' },
+    });
+
+    const catFood = await prisma.category.upsert({
+        where: { id: 12 },
+        update: {},
+        create: { name: 'Cat food' },
+    });
+
+
     console.log({ catFood, dogFood });
 }
 

@@ -15,7 +15,7 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Role } from 'src/auth/role/role.decorator';
 import { RolesGuard } from 'src/auth/role/roles.guard';
-import { UserRole } from 'src/company/enum/role.enum';
+import { UserRole } from 'src/users/enum/role.enum';
 
 @Controller('product')
 export class ProductController {
