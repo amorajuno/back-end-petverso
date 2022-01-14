@@ -11,7 +11,6 @@ export class ProductService {
   async create(data: Prisma.ProductCreateInput): Promise<Product> {
     const product = await this.db.product.create({ data });
     console.log(product);
-    console.log(data);
     return product;
   }
 
