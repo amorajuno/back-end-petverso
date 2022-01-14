@@ -72,7 +72,7 @@ model ProductCart {
   cart         Cart      @relation(fields: [cartId], references: [id])
   productID    String    @unique
   product      Product   @relation(fields: [productID], references: [id])
-  productName Product   @relation("productNames")
+  productNames Product[] @relation(name:"productNames")
   productQnty  Int
   totalPrice   Decimal
 }
@@ -94,6 +94,6 @@ model Product {
   company       Company?      @relation(fields: [companyID], references: [id])
   categories    Category?     @relation(fields: [categoryID], references: [id])
   session       ProductCart[]
-  ProductCart   ProductCart?  @relation("productNames", fields: [productCartId], references: [id])
+  ProductCart   ProductCart?  @relation(name:"productNames", fields: [productCartId], references: [id])
   productCartId String?
 }
