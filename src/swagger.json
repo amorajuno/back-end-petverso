@@ -1,0 +1,592 @@
+{
+  "openapi": "3.0.0",
+  "info":{
+    "title":"API Marketplace PetVerso",
+    "description":"Essa API tem como objetivo manipulacao de CRUD para Marketplace Pet.",
+    "termsOfService":"http://localhost:3000/terms",
+    "contact":{
+      "email": "petstore@gmail.com"  
+    },
+    "version":"1.0.0"
+  },
+  "servers": [
+    {
+      "url":"https://petverso.netlify.app/",
+      "description": "API PetVerso"
+    }
+  ],
+  "paths": {
+    "/user/registrar": {
+      "post": {
+        "summary": "Cadastro de Usuário",
+        "description": "Rota responsavel por cadastrar usuários.",
+        "tags": ["User"],
+        "requestBody": {
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/User"
+              },
+              "examples":{
+                "user":{
+                  "value":{
+                    "name":"João",
+                    "email":"joão@gmail.com",
+                    "usarname":"João dos Pets",
+                    "password":"1234",
+                    "passwordConfirmation":"1234",
+                    "cpf":"01234567890",
+                    "birthday":"01012000",
+                    "city":"São Paulo",
+                    "state":"São Paulo",
+                    "cep":"10000200",
+                    "phone":"11920304050",
+                    "address1":"Rua dos Pets",
+                    "address2":"Centro"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "401":{
+            "description": "Unauthorized"
+          },
+          "400":{
+            "description": "User Already Excists!"
+          },
+          "200":{
+            "description": "OK",
+            "content":{
+              "application/json": {
+                "schema":{
+                  "type": "object",
+                  "$ref":"#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }  
+      }
+    },
+    "/user/registrar-admin": {
+      "post": {
+        "summary": "Cadastro de Administrador",
+        "description": "Rota responsavel por cadastrar administradores do PetVerso.",
+        "tags": ["User"],
+        "security": [{"bearerAuth":[]}],
+        "requestBody": {
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/User"
+              },
+              "examples":{
+                "user":{
+                  "value":{
+                    "name":"Maria Admin",
+                    "email":"maria.admin@petverso.com",
+                    "usarname":"Maria SUPORTE",
+                    "password":"1234",
+                    "passwordConfirmation":"1234",
+                    "cpf":"01234567890",
+                    "birthday":"01012000",
+                    "city":"São Paulo",
+                    "state":"São Paulo",
+                    "cep":"10000200",
+                    "phone":"11920304050",
+                    "address1":"Rua dos Pets",
+                    "address2":"Centro"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "401":{
+            "description": "Unauthorized"
+          },
+          "400":{
+            "description": "Admin Already Excists!"
+          },
+          "200":{
+            "description": "OK",
+            "content":{
+              "application/json": {
+                "schema":{
+                  "type": "object",
+                  "$ref":"#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }  
+      }
+    },
+    "/user/buscar/:id":{
+      "get":{
+        "description": "Busca de um usuário pelo ID",
+        "summary":"Rota responsável pela busca de um usuário pelo ID",
+        "tags":["User"],
+        "security": [{"bearerAuth":[]}],
+        "parameters": [
+          {
+            "name":"ID",
+            "in": "query",
+            "description": "Passar o ID do usuário na URL para realizar a busca.",
+            "required": true
+          }
+        ]
+      }
+    },
+    "user/buscar/name/:username":{
+      "get":{
+        "description": "Busca de um usuário pelo seu Username",
+        "summary":"Rota responsável pela busca de um usuário pelo seu Username.",
+        "tags":["User"],
+        "security": [{"bearerAuth":[]}],
+        "parameters": [
+          {
+            "name":"Username",
+            "in": "query",
+            "description": "Passar o Username do usuário na URL para realizar a busca.",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/user/buscar-todos":{
+      "get":{
+        "description": "Busca todos os usuários da plataforma PetVerso.",
+        "summary":"Rota responsável pela busca de todos os usuários do PetVerso.",
+        "tags":["User"],
+        "security": [{"bearerAuth":[]}],
+        "parameters": [
+          {
+            "description": "Ao entrar na rota, caso esteja logado como administrador, a rota ira retornar todos os usuários da plataforma PetVerso."
+          }
+        ]
+      }
+    },
+    "/user/super-find-all":{
+      "get":{
+        "description": "Busca todos os usuários da plataforma e sua informaçoe.",
+        "summary":"Rota responsável pela busca de todos os usuarios do PetVerso com suas informações e afins.",
+        "tags":["User"],
+        "security": [{"bearerAuth":[]}],
+        "parameters": [
+          {
+            "description": "Ao entrar na rota, caso esteja logado como administrador, a rota ira retornar todos os usuários da plataforma PetVerso com suas informações de conta e afins."
+          }
+        ]
+      }
+    },
+    "/user/deletar/:id":{
+      "delete":{
+        "description": "Deleta de um usuário pelo ID",
+        "summary":"Rota responsável pela deleção de um usuário pelo seu ID",
+        "tags":["User"],
+        "security": [{"bearerAuth":[]}],
+        "parameters": [
+          {
+            "name":"ID",
+            "in": "query",
+            "description": "Passar o ID do usuário na URL para realizar a deleção.",
+            "required": true
+          }
+        ]
+      }
+    },
+
+
+    "/product": {
+      "post": {
+        "summary": "Cadastro de Produtos",
+        "description": "Rota responsavel por cadastrar um produto.",
+        "tags": ["Product"],
+        "security": [{"bearerAuth":[]}],
+        "requestBody": {
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/Product"
+              },
+              "examples":{
+                "user":{
+                  "value":{
+                    "name": "Ração",
+                    "imgUrl": "",
+                    "animalType": "Cachorro Adulto",
+                    "price": "35,00",
+                    "description": "Ração de 1 Kg pra Cachorros Adultos, peso acima de 10 Kg, para todas as raças.",
+                    "restrictions": "Para cachorro com mais de 10 Kg",
+                    "quantity": "50",
+                    "companyID": "ID da empresa"
+                    }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "401":{
+            "description": "Unauthorized"
+          },
+          "400":{
+            "description": "Product Already Excists!"
+          },
+          "200":{
+            "description": "OK",
+            "content":{
+              "application/json": {
+                "schema":{
+                  "type": "object",
+                  "$ref":"#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }  
+      }
+    },
+    "/product/all":{
+      "get":{
+        "description": "Busca todos os produtos da plataforma PetVerso.",
+        "summary":"Rota responsável pela busca de todos os produtos das empresas cadastradas no PetVerso.",
+        "tags":["Product"],
+        "parameters": [
+          {
+            "description": "Ao entrar na rota ira retornar todos os produtos da plataforma PetVerso."
+          }
+        ]
+      }
+    },
+    "/procuct/:id":{
+      "get":{
+        "description": "Busca de um produto pelo ID",
+        "summary":"Rota responsável pela busca de um produto pelo ID",
+        "tags":["Product"],
+        "parameters": [
+          {
+            "name":"ID",
+            "in": "query",
+            "description": "Passar o ID do produto na URL para realizar a busca.",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/procuct/cat/:id":{
+    },
+    "product/byname/:searchName":{
+      "get":{
+        "description": "Busca de um produto pelo Nome",
+        "summary":"Rota responsável pela busca de um produto pelo Nome.",
+        "tags":["Product"],
+        "parameters": [
+          {
+            "name":"Nome",
+            "in": "query",
+            "description": "Passar o Nome do produto na URL para realizar a busca.",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/procuct/apagar/:id":{
+      "delete":{
+        "description": "Deleta de um produto pelo ID",
+        "summary":"Rota responsável pela deleção de um produto pelo seu ID",
+        "tags":["Product"],
+        "security": [{"bearerAuth":[]}],
+        "parameters": [
+          {
+            "name":"ID",
+            "in": "query",
+            "description": "Passar o ID do produto na URL para realizar a deleção.",
+            "required": true
+          }
+        ]
+      }
+    },
+
+
+    "/company/registrar":{
+      "post": {
+        "summary": "Cadastro de Empresas",
+        "description": "Rota responsavel por cadastrar uma Empresa.",
+        "tags": ["Company"],
+        "requestBody": {
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/Company"
+              },
+              "examples":{
+                "user":{
+                  "value":{
+                    "username": "lupetshop",
+                    "birthday": "05062010",
+                    "phone": "11920304050",
+                    "password": "1234",
+                    "passwordConfirmation": "1234",
+                    "corporateName": "PetShop da Lú",
+                    "email": "lupetshop@gmail.com",
+                    "cnpj": "12345678000101",
+                    "city": "Curitiba",
+                    "state": "PR",
+                    "address1": "Rua das Graças",
+                    "address2": "Centro",
+                    "cep": "01020304"
+                    }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/company/todas":{
+      "get":{
+        "description": "Busca todos os produtos da empresas do PetVerso.",
+        "summary":"Rota responsável pela busca de todos as empresas cadastradas no PetVerso.",
+        "tags":["Company"],
+        "parameters": [
+          {
+            "description": "Ao entrar na rota ira retornar todas os empresas cadastradas no PetVerso."
+          }
+        ]
+      }
+    },
+    "/company/:id":{
+      "get":{
+        "description": "Busca de uma empresa pelo ID",
+        "summary":"Rota responsável pela busca de uma empresa pelo ID",
+        "tags":["Company"],
+        "security": [{"bearerAuth":[]}],
+        "parameters": [
+          {
+            "name":"ID",
+            "in": "query",
+            "description": "Passar o ID da empresa na URL para realizar a busca.",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/company/apagar/:id":{
+      "delete":{
+        "description": "Deleta de uma empresa pelo ID",
+        "summary":"Rota responsável pela deleção de uma empresa pelo seu ID",
+        "tags":["Company"],
+        "security": [{"bearerAuth":[]}],
+        "parameters": [
+          {
+            "name":"ID",
+            "in": "query",
+            "description": "Passar o ID da empresa na URL para realizar a deleção.",
+            "required": true
+          }
+        ]
+      }
+    },
+
+    "/category/cadastrar":{
+      "post": {
+        "summary": "Cadastro de Categorias",
+        "description": "Rota responsavel por cadastrar uma Categoria.",
+        "tags": ["Category"],
+        "requestBody": {
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/Category"
+              },
+              "examples":{
+                "user":{
+                  "value":{
+                    "name": "Higiene"
+                    }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category/todas":{
+      "get":{
+        "description": "Busca todas as categoria do PetVerso.",
+        "summary":"Rota responsável pela busca de todas as categorias cadastradas no PetVerso.",
+        "tags":["Category"],
+        "parameters": [
+          {
+            "description": "Ao entrar na rota ira retornar todas as categorias cadastradas no PetVerso."
+          }
+        ]
+      }
+    },
+    "/category/:id":{
+      "get":{
+        "description": "Busca de uma categoria pelo ID",
+        "summary":"Rota responsável pela busca de uma cateogria pelo ID",
+        "tags":["Category"],
+        "parameters": [
+          {
+            "name":"ID",
+            "in": "query",
+            "description": "Passar o ID da empresa na URL para realizar a busca.",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/category/apagar/:id":{
+      "delete":{
+        "description": "Deleta de uma categoria pelo ID",
+        "summary":"Rota responsável pela deleção de uma categoria pelo seu ID",
+        "tags":["Category"],
+        "security": [{"bearerAuth":[]}],
+        "parameters": [
+          {
+            "name":"ID",
+            "in": "query",
+            "description": "Passar o ID da categoria na URL para realizar a deleção.",
+            "required": true
+          }
+        ]
+      }
+    }
+  },
+  "components":{
+    "schemas":{
+      "User":{
+        "type": "object",
+        "properties": {
+          "name":{
+            "type": "string"
+        },
+          "email": {
+            "type": "string"
+        },
+          "username": {
+            "type": "string"
+        },
+          "password": {
+            "type": "string"
+        },
+          "passwordConfirmation": {
+            "type": "string"
+        },
+          "cpf": {
+            "type": "string"
+        },
+          "birthday": {
+            "type": "string"
+        },
+          "city": {
+            "type": "string"
+        },
+          "state": {
+            "type": "string"
+        },
+          "cep": {
+            "type": "string"
+        },
+          "phone": {
+            "type": "string"
+        },
+          "address1": {
+            "type": "string"
+        },
+          "address2": {
+            "type": "string"
+          }
+        }
+      },
+      "Product":{
+        "type": "object",
+        "properties": {
+          "name":{
+            "type": "string"
+        },
+          "imgUrl": {
+            "type": "string"
+        },
+          "animalType": {
+            "type": "string"
+        },
+          "price": {
+            "type": "decimal"
+        },
+          "description": {
+            "type": "string"
+        },
+          "restrictions": {
+            "type": "string"
+        },
+          "quantity": {
+            "type": "int"
+        },
+          "companyID": {
+            "type": "string"
+          }
+        }
+      },
+      "Company":{
+        "type": "object",
+        "properties": {
+          "username":{
+            "type": "string"
+        },
+          "birthday": {
+            "type": "string"
+        },
+          "phone": {
+            "type": "string"
+        },
+          "password": {
+            "type": "string"
+        },
+          "passwordConfirmation": {
+            "type": "string"
+        },
+          "corporateName": {
+            "type": "string"
+        },
+          "email": {
+            "type": "string"
+        },
+          "cnpj": {
+            "type": "string"
+        },
+          "city": {
+            "type": "string"
+        },
+          "state": {
+            "type": "string"
+        },
+          "address1": {
+            "type": "string"
+        },
+          "address2": {
+            "type": "string"
+        },
+          "cep": {
+            "type": "string"
+          }
+        }
+      },
+      "Category":{
+        "type": "object",
+        "properties": {
+          "name":{
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
