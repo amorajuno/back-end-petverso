@@ -67,23 +67,16 @@ model Cart {
 }
 
 model ProductCart {
-<<<<<<< HEAD
-  id          String    @id @unique @default(uuid())
-  cartId      String
-  cart        Cart      @relation(fields: [cartId], references: [id])
-  product     Product[]
-  productQnty Int
-  totalPrice  Decimal
-=======
   id           String    @id @unique @default(uuid())
   cartId       String
   cart         Cart      @relation(fields: [cartId], references: [id])
   productID    String    @unique
   product      Product   @relation(fields: [productID], references: [id])
-  productName Product   @relation("productNames")
+  // products     Product[]
+  // name         String    
+  // productNames Product[] @relation("productNames")
   productQnty  Int
   totalPrice   Decimal
->>>>>>> parent of d11332b (relation optional fix)
 }
 
 model Product {
