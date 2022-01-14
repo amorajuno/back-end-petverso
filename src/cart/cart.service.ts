@@ -58,8 +58,13 @@ export class CartService {
       where: { userID: id, closed: false },
       select: { id: true, productList: true },
     });
+    const products = this.db.productCart.findUnique({
+      where: { id: cart.productID },
+      include: { product: true },
+    });
     console.log(cart);
-    return cart;
+    console.log(products);
+    return { ...cart, ...products };
   }
 
   async updateQnty(id: string, data: UpdateCartDto) {
