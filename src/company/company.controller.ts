@@ -48,7 +48,7 @@ export class CompanyController {
   }
 
   // ROTA OK //
-  @Delete(':id')
+  @Delete('apagar/:id')
   remove(@Param('id') id: string) {
     return this.companyService.remove(id);
   }

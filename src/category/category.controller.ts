@@ -37,7 +37,7 @@ export class CategoryController {
     return this.categoryService.findOne(+id);
   }
 
-  @Delete(':id')
+  @Delete('apagar/:id')
   @Role(UserRole.ADMIN)
   @UseGuards(AuthGuard(), RolesGuard)
   remove(@Param('id') id: number) {
