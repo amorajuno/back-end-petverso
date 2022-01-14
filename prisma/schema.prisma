@@ -67,37 +67,6 @@ model Cart {
 }
 
 model ProductCart {
-<<<<<<< HEAD
-  id           String    @id @unique @default(uuid())
-  cartId       String
-  cart         Cart      @relation(fields: [cartId], references: [id])
-  productID    String    @unique
-  product      Product   @relation(fields: [productID], references: [id])
-  // products     Product[]
-  // name         String    
-  // productNames Product[] @relation("productNames")
-  productQnty  Int
-  totalPrice   Decimal
-}
-
-model Product {
-  id            String        @id @unique @default(uuid())
-  name          String
-  imgUrl        String
-  animalType    String
-  price         Decimal
-  description   String
-  contains      String
-  restrictions  String
-  quantity      Int
-  updatedAt     DateTime      @updatedAt
-  addedAt       DateTime      @default(now())
-  companyID     String
-  categoryID    Int
-  company       Company?      @relation(fields: [companyID], references: [id])
-  categories    Category?     @relation(fields: [categoryID], references: [id])
-  session       ProductCart[]
-=======
   id          String  @id @unique @default(uuid())
   cartId      String
   cart        Cart    @relation(fields: [cartId], references: [id])
@@ -124,5 +93,4 @@ model Product {
   company      Company?      @relation(fields: [companyID], references: [id])
   categories   Category?     @relation(fields: [categoryID], references: [id])
   session      ProductCart[]
->>>>>>> parent of 2cd60c2 (adiciona relação com os nomes de produtos ao crrinho)
 }
