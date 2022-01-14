@@ -67,14 +67,12 @@ model Cart {
 }
 
 model ProductCart {
-  id           String    @id @unique @default(uuid())
-  cartId       String
-  cart         Cart      @relation(fields: [cartId], references: [id])
-  productID    String    @unique
-  product      Product   @relation(fields: [productID], references: [id])
-  productNames Product[] @relation(name:"productNames")
-  productQnty  Int
-  totalPrice   Decimal
+  id          String    @id @unique @default(uuid())
+  cartId      String
+  cart        Cart      @relation(fields: [cartId], references: [id])
+  product     Product[]
+  productQnty Int
+  totalPrice  Decimal
 }
 
 model Product {
@@ -94,6 +92,4 @@ model Product {
   company       Company?      @relation(fields: [companyID], references: [id])
   categories    Category?     @relation(fields: [categoryID], references: [id])
   session       ProductCart[]
-  ProductCart   ProductCart?  @relation(name:"productNames", fields: [productCartId], references: [id])
-  productCartId String?
 }
